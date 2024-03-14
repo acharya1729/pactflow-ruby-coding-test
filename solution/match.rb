@@ -26,7 +26,7 @@ class Match
     top_scoring_player, top_score = @players.max_by { |_k_, point| point }
     if top_score >= 4 && (top_score - @players.values.min) >= 2
       @game_scores[top_scoring_player] += 1
-      max_by@players.transform_values! { 0 }
+      @players.transform_values! { 0 }
     end
   end
 
