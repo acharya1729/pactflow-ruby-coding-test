@@ -8,13 +8,16 @@ class Match
   def point_goes_to(player)
     @players[player] += 1
     check_winner
+    p score
   end
 
   def score
     if is_any_player_won?
       print_game_scores
+    elsif is_deuce?
+       "#{print_game_scores} Deuce !!"
     else
-      current_score
+      "#{print_game_scores} #{current_score}"
     end
   end
 
@@ -35,9 +38,12 @@ class Match
   end
 
   def print_game_scores
-    @game_scores.each do|_k,_v|
-      p "#{_k}==>#{v}"
-    end
+    @game_scores.values.join("-")
+  end
+
+  #deuce => if both players have same points 4-4
+  def is_deuce?
+    @players.values.all? { |score| score >=3 } and @players.values.uniq.size.eql? 1
   end
 
 
@@ -45,15 +51,22 @@ end
 
 
 match = Match.new('x', 'y')
-p match.inspect
 
+p match.point_goes_to('x')
+p match.score
+p match.point_goes_to('x')
+p match.score
 p match.point_goes_to('x')
 p match.score
 p match.point_goes_to('y')
 p match.score
-p match.point_goes_to('x')
+p match.point_goes_to('y')
 p match.score
-p match.point_goes_to('x')
+p match.point_goes_to('y')
 p match.score
-p match.point_goes_to('x')
+p match.point_goes_to('y')
+p match.score
+p match.point_goes_to('y')
+p match.score
+p match.point_goes_to('y')
 p match.score
